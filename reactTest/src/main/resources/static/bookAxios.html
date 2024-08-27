@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@^16/umd/react.production.min.js"></script>
+    <script
+            src="https://unpkg.com/react-dom@16.13.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    class Form extends React.Component{
+        render(){
+            return(
+                <form>
+                    <label>BOOKNAME</label>
+                    <input type="text" name="bookname"/>
+                    <label>PRICE</label>
+                    <input type="text" name="price"/>
+                    <label>PUBLISHER</label>
+                    <input type="text" name="publisher"/>
+                    <input type="button" value="submit"/>
+                </form>
+            )
+        }
+    }
+
+
+    let BookHeader = () => {
+        return <thead>
+        <th>BOOKID</th>
+        <th>BOOKNAME</th>
+        <th>PRICE</th>
+        <th>PUBLISHER</th>
+        </thead>
+    }
+
+    let BookBody = (props) => {
+        let rows = props.listData.map((book) => {
+            return <tr>
+                <td>{book.bookid}</td>
+                <td>{book.bookname}</td>
+                <td>{book.price}</td>
+                <td>{book.publisher}</td>
+            </tr>
+        })
+        return <tbody>{rows}</tbody>
+    }
+    let BookList = (props) => {
+        // let ld = props.listData
+        return <table>
+            <BookHeader></BookHeader>
+            <BookBody listData={props.listData}></BookBody>
+        </table>
+    }
+    axios.get("/books").then((res) => {
+        let list = res.data;
+        ReactDOM.render(<BookList listData={list}/>, document.getElementById("root"))
+    })
+
+
+</script>
+</body>
+</html>

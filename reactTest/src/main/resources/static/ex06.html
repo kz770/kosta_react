@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@^16/umd/react.production.min.js"></script>
+    <script
+            src="https://unpkg.com/react-dom@16.13.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    let BookHeader=()=> {
+        return <thead>
+            <th>book id</th>
+            <th>book name</th>
+            <th>price</th>
+            <th>publisher</th>
+        </thead>
+    }
+
+    let BookBody = () => {
+        return <tbody>
+        <tr>
+            <td>1</td>
+            <td>fun java</td>
+            <td>5000</td>
+            <td>kosta media</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>fun spring</td>
+            <td>6000</td>
+            <td>Pearson</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>fun react</td>
+            <td>7000</td>
+            <td>cobooks</td>
+        </tr>
+        </tbody>
+    }
+    let BookList = () => {
+        return <table>
+            <BookHeader></BookHeader>
+            <BookBody></BookBody>
+        </table>
+    }
+    ReactDOM.render(<BookList/>, document.getElementById("root"))
+</script>
+</body>
+</html>

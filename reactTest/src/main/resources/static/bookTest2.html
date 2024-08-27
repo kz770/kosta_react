@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@^16/umd/react.production.min.js"></script>
+    <script
+            src="https://unpkg.com/react-dom@16.13.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    class Form extends React.Component {
+        submitForm=()=>{
+            let form=document.getElementById("bookForm");
+            let formData=new FormData(form);    //자바스크립트가 만들어놓은 객체로 만들어준다
+            let doc=Object.fromEntries(formData.entries());
+            console.log(doc)
+            const axiosConfig={
+                headers:{
+                    "Content-Type":"application/x-www-form-urlencoded"
+                }
+            }
+            axios.post("/insert",doc,axiosConfig).then((res)=>{
+                location.reload();  //다시 ajax 통신해서 list를 가져오겠다
+            }); //이해가 안가^^
+        }
+        render() {
+            return (
+                <form id="bookForm">
+                    <label>BOOKNAME</label>
+                    <input type="text" name="bookname"/>
+                    <br/>
+                    <label>PRICE</label>
+                    <input type="text" name="price"/>
+                    <br/>
+                    <label>PUBLISHER</label>
+                    <input type="text" name="publisher"/>
+                    <br/>
+                    <input type="button" value="submit" onClick={this.submitForm}/>
+                </form>
+            )
+        }
+    }
+    
+
+
+    let BookHeader = () => {
+        return <thead>
+        <th>BOOKID</th>
+        <th>BOOKNAME</th>
+        <th>PRICE</th>
+        <th>PUBLISHER</th>
+        </thead>
+    }
+
+    let BookBody = (props) => {
+        let rows = props.listData.map((book) => {
+            return <tr>
+                <td>{book.bookid}</td>
+                <td>{book.bookname}</td>
+                <td>{book.price}</td>
+                <td>{book.publisher}</td>
+            </tr>
+        })
+        return <tbody>{rows}</tbody>
+    }
+    let BookList = (props) => {
+        // let ld = props.listData
+        return <table>
+            <BookHeader></BookHeader>
+            <BookBody listData={props.listData}></BookBody>
+        </table>
+    }
+    axios.get("/books").then((res) => {
+        let list = res.data;
+        console.log("OK")
+
+        class App extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <Form/>
+                        <hr/>
+                        <BookList listData={list}/>
+                    </div>
+                )
+            }
+
+        } // end App
+        ReactDOM.render(
+            <App/>
+            , document.getElementById("root"))
+    })
+
+
+</script>
+</body>
+</html>
