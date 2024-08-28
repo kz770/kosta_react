@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/react@^16/umd/react.production.min.js"></script>
+    <script
+            src="https://unpkg.com/react-dom@16.13.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/babel" src="tags/BookBody.jsx"></script>
+    <script type="text/babel" src="tags/BookHeader.jsx"></script>
+    <script type="text/babel" src="tags/BookList.jsx"></script>
+    <script type="text/babel" src="tags/Form.jsx"></script>
+    <script type="text/babel" src="tags/App.jsx"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    axios.get("/books").then((res) => {
+        console.log("OK")
+        let list = res.data;
+        ReactDOM.render(
+            <App listData={list}/>
+            , document.getElementById("root"))
+    })
+
+</script>
+</body>
+</html>
