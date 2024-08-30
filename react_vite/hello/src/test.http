@@ -1,0 +1,44 @@
+get http://localhost:8000/hello
+
+###
+post http://localhost:8000/hello
+
+###
+get http://localhost:8000
+
+###
+get http://localhost:8000/100
+
+###
+get http://localhost:8000/qs?p1=1
+
+###
+post http://localhost:8000/member
+Content-Type: application/json; charset=UTF-8
+
+{
+    "name" : "spring",
+    "age" : 11
+}
+
+
+###
+post http://localhost:8000/books
+Content-Type: application/json; charset=UTF-8
+
+{
+    "bookname" : "Exciting React",
+    "price" : 25600,
+    "publisher" : "Hanbit"
+}
+
+###
+put http://localhost:8000/books
+Content-Type: application/json; charset=UTF-8
+
+{
+    "bookid" : 20,
+    "bookname" : "Exciting React",
+    "price" : 25600,
+    "publisher" : "Hanbit"
+}

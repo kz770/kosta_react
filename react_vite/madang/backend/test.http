@@ -1,0 +1,32 @@
+get http://localhost:8000
+
+###
+get http://localhost:8000/hello
+
+###
+get http://localhost:8000/100
+
+###
+get http://localhost:8000/qs?p1=hello&p2=1000
+
+###
+post http://localhost:8000/hello
+
+###
+post http://localhost:8000/member
+Content-Type: application/json; charset=UTF-8
+
+{
+    "name":"홍길동",
+    "age":20
+}
+
+###
+post http://localhost:8000/books
+Content-Type: application/json; charset=UTF-8
+
+{
+    "bookname":"신나는 리액트",
+    "price":35000,
+    "publisher":"코스타 미디어"
+}
